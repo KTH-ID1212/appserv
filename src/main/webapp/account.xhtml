@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Welcome to the bank</title>
+    </h:head>
+    <h:body>
+        <h1>Welcome to the bank</h1>
+
+        <h3>Current account</h3>
+        <p>
+            <h:outputLabel for="currAcctNo" rendered="#{acctManager.currentAcct != null}"  value="Account Number: "/>
+            <h:outputText id="currAcctNo" value="#{acctManager.currentAcct.acctNo}"/>
+            <h:outputLabel for="currBalance" rendered="#{acctManager.currentAcct != null}"  value="Balance: "/>
+            <h:outputText id="currBalance" value="#{acctManager.currentAcct.balance}"/>
+
+            <h:outputText rendered="#{acctManager.currentAcct == null}"  value="No current account."/>
+        </p>
+        <p>
+            <h:outputLabel for="currHolder" rendered="#{acctManager.currentAcct != null}"  value="Account Holder: "/>
+            <h:outputText id="currHolder" value="#{acctManager.currentAcct.firstName} #{acctManager.currentAcct.lastName}"/>
+        </p>
+        <hr/>
+
+        <h:form>
+            <h3>Find Account</h3>
+            <p>
+                <h:outputLabel for="searchedAcct" value="Account Number: "/>
+                <h:inputText id="searchedAcct" value="#{acctManager.searchedAcct}"/>
+            </p>
+            <p>
+                <h:commandButton value="Search" action="#{acctManager.findAccount}"/>
+            </p>
+            <hr/>
+
+            <h3>Deposit Or Withdraw</h3>
+            <p>
+                <h:outputLabel for="transactionAmount" value="Amount to deposit or withdraw: "/>
+                <h:inputText id="transactionAmount" value="#{acctManager.transactionAmount}"/>
+            </p>
+            <p>
+                <h:commandButton value="Deposit" action="#{acctManager.deposit}"/>
+                <h:commandButton value="Withdraw" action="#{acctManager.withdraw}"/>
+            </p>
+            <hr/>
+
+            <h3>Create a New Account</h3>
+            <p>
+                <h:outputLabel for="holderFirstName" value="Account Holder's First Name: "/>
+                <h:inputText id="holderFirstName" value="#{acctManager.newAccountHolderFirstName}"/>
+                <h:outputLabel for="holderLastName" value="Account Holder's Last Name: "/>
+                <h:inputText id="holderLastName" value="#{acctManager.newAccountHolderLastName}"/>
+                <h:outputLabel for="newBalance" value="Account Balance: "/>
+                <h:inputText id="newBalance" value="#{acctManager.newAccountBalance}"/>
+            </p>
+            <p>
+                <h:commandButton value="Create Account" action="#{acctManager.createAccount}"/>
+            </p>
+            <hr/>
+        </h:form>
+
+    </h:body>
+</html>
+
