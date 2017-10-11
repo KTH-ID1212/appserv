@@ -34,8 +34,6 @@ import javax.persistence.Id;
  */
 @Entity
 public class Account implements AccountDTO, Serializable {
-
-    private static final long serialVersionUID = 16247164401L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int acctNo;
