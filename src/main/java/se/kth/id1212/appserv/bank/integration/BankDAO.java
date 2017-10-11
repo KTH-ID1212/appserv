@@ -30,7 +30,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import se.kth.id1212.appserv.bank.model.Account;
-import se.kth.id1212.appserv.bank.model.AccountDTO;
 
 /**
  * Handles all interaction with the entity manager. No code outside of this class, except for the
