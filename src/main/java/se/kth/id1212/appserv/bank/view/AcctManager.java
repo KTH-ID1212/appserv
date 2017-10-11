@@ -1,3 +1,26 @@
+/*
+ * The MIT License
+ *
+ * Copyright 2017 Leif Lindbäck <leifl@kth.se>.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package se.kth.id1212.appserv.bank.view;
 
 import java.io.Serializable;
@@ -9,11 +32,12 @@ import javax.inject.Named;
 import se.kth.id1212.appserv.bank.controller.CashierFacade;
 import se.kth.id1212.appserv.bank.model.AccountDTO;
 
+/**
+ * Handles all interaction with the account JSF page.
+ */
 @Named("acctManager")
 @ConversationScoped
 public class AcctManager implements Serializable {
-
-    private static final long serialVersionUID = 16247164405L;
     @EJB
     private CashierFacade cashierFacade;
     private AccountDTO currentAcct;
@@ -65,24 +89,11 @@ public class AcctManager implements Serializable {
     }
 
     /**
-     * This return value is needed because of a JSF 2.2 bug. Note 3 on page 7-10
-     * of the JSF 2.2 specification states that action handling methods may be
-     * void. In JSF 2.2, however, a void action handling method plus an
-     * if-element that evaluates to true in the faces-config navigation case
-     * causes an exception.
-     *
-     * @return an empty string.
-     */
-    private String jsf22Bugfix() {
-        return "";
-    }
-
-    /**
      * Withdraws the amount set by the latest call to
      * <code>setTransactionAmount</code> from the account specified by
      * <code>currentAcct.getAcctNo()</code>.
      */
-    public String withdraw() {
+    public void withdraw() {
         try {
             transactionFailure = null;
             cashierFacade.withdraw(currentAcct.getAcctNo(), transactionAmount);
@@ -90,14 +101,13 @@ public class AcctManager implements Serializable {
         } catch (Exception e) {
             handleException(e);
         }
-        return jsf22Bugfix();
     }
 
     /**
      * Searches for the account specified by the latest call to
      * <code>setSearchedAcct</code>.
      */
-    public String findAccount() {
+    public void findAccount() {
         try {
             startConversation();
             transactionFailure = null;
@@ -105,7 +115,6 @@ public class AcctManager implements Serializable {
         } catch (Exception e) {
             handleException(e);
         }
-        return jsf22Bugfix();
     }
 
     /**
@@ -113,7 +122,7 @@ public class AcctManager implements Serializable {
      * <code>setTransactionAmount</code> from the account specified by
      * <code>currentAcct.getAcctNo()</code>.
      */
-    public String deposit() {
+    public void deposit() {
         try {
             transactionFailure = null;
             cashierFacade.deposit(currentAcct.getAcctNo(), transactionAmount);
@@ -121,7 +130,6 @@ public class AcctManager implements Serializable {
         } catch (Exception e) {
             handleException(e);
         }
-        return jsf22Bugfix();
     }
 
     /**
@@ -132,7 +140,7 @@ public class AcctManager implements Serializable {
      * specified by the latest call to
      * <code>setNewAccountBalance</code>.
      */
-    public String createAccount() {
+    public void createAccount() {
         try {
             startConversation();
             transactionFailure = null;
@@ -141,7 +149,6 @@ public class AcctManager implements Serializable {
         } catch (Exception e) {
             handleException(e);
         }
-        return jsf22Bugfix();
     }
 
     /**
